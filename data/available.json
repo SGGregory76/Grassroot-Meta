@@ -4,7 +4,7 @@
     "title": "Banner Drop 001",
     "image": "assets/images/banner1.png",
     "description": "Revolutionary street banner with modern symbolism.",
-    "tags": ["banner", "meta", "drop1"]
+    "tags": ["banner", "meta"]
   },
   {
     "id": "meta002",
@@ -14,4 +14,3 @@
     "tags": ["poster", "template"]
   }
 ]
-
