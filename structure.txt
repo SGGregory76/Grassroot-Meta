@@ -1,0 +1,12 @@
+GrassrootsMeta/
+├── index.html
+├── style.css
+├── script.js
+├── assets/
+│   ├── images/
+│   └── icons/
+├── data/
+│   ├── metadata.json
+│   └── gallery.json
+└── banners/
+    └── banner1.png
