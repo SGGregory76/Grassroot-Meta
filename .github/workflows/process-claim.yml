@@ -1,0 +1,52 @@
+name: Process Claim Request
+
+on:
+  push:
+    paths:
+      - 'data/claim-request.json'
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Process Claim
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+          const path = './data/';
+          const req = JSON.parse(fs.readFileSync(path + 'claim-request.json'));
+          const avail = JSON.parse(fs.readFileSync(path + 'available.json'));
+          const owners = JSON.parse(fs.readFileSync(path + 'owners.json'));
+
+          const index = avail.findIndex(item => item.id === req.item_id);
+          if (index === -1) {
+            console.error("Item not found.");
+            process.exit(1);
+          }
+
+          const claimed = avail.splice(index, 1)[0];
+          owners.push({
+            id: claimed.id,
+            owner: req.owner,
+            date: new Date().toISOString().split('T')[0],
+            notes: "Claimed manually via mobile",
+            image: claimed.image
+          });
+
+          fs.writeFileSync(path + 'available.json', JSON.stringify(avail, null, 2));
+          fs.writeFileSync(path + 'owners.json', JSON.stringify(owners, null, 2));
+          fs.writeFileSync(path + 'claim-request.json', '{}');
+          EOF
+
+      - name: Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Processed claim for ${{ github.actor }}"
