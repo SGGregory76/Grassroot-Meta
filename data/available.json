@@ -1,0 +1,17 @@
+[
+  {
+    "id": "meta001",
+    "title": "Banner Drop 001",
+    "image": "assets/images/banner1.png",
+    "description": "Revolutionary street banner with modern symbolism.",
+    "tags": ["banner", "meta", "drop1"]
+  },
+  {
+    "id": "meta002",
+    "title": "Poster Template",
+    "image": "assets/images/poster1.png",
+    "description": "Editable street poster template for grassroots campaigns.",
+    "tags": ["poster", "template"]
+  }
+]
+
